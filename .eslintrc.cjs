@@ -18,7 +18,7 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh', 'prettier'],
+  plugins: ['react', '@typescript-eslint', 'react-refresh', 'prettier'],
   settings: {
     react: {
       // Nói eslint-plugin-react tự động biết version của React.
