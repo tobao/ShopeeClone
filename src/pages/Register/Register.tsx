@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { rules } from 'src/utils/rules'
+import { getRules } from 'src/utils/rules'
 
 interface FormData {
   email: string
@@ -12,13 +12,22 @@ export default function Register() {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors }
   } = useForm<FormData>()
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data)
-  })
-  console.log('error: ', errors)
+  const rules = getRules(getValues)
+
+  const onSubmit = handleSubmit(
+    (data) => {
+      // console.log(data)
+    },
+    (data) => {
+      const password = getValues('password')
+      console.log(password)
+    }
+  )
+  // console.log('error: ', errors)
 
   return (
     <div className='bg-orange'>
@@ -32,6 +41,8 @@ export default function Register() {
                   type='email'
                   className='w-full rounded-sm border border-gray-300 p-3 outline-none focus:border-gray-500 focus:shadow-sm'
                   placeholder='Email'
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
                   {...register('email', rules.email)}
                 />
                 <div className='mt-1 min-h-[1.25rem] text-sm text-red-600'>{errors.email?.message}</div>
@@ -41,6 +52,9 @@ export default function Register() {
                   type='password'
                   className='w-full rounded-sm border border-gray-300 p-3 outline-none focus:border-gray-500 focus:shadow-sm'
                   placeholder='Password'
+                  autoComplete='on'
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
                   {...register('password', rules.password)}
                 />
                 <div className='mt-1 min-h-[1.25rem] text-sm text-red-600'>{errors.password?.message}</div>
@@ -50,7 +64,9 @@ export default function Register() {
                   type='password'
                   className='w-full rounded-sm border border-gray-300 p-3 outline-none focus:border-gray-500 focus:shadow-sm'
                   placeholder='Confirm-password'
-                  {...register('confirm_password', rules.confirm_password)}
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
+                  {...register('confirm_password', { ...rules.confirm_password })}
                 />
                 <div className='mt-1 min-h-[1.25rem] text-sm text-red-600'>{errors.confirm_password?.message}</div>
               </div>
