@@ -93,7 +93,7 @@ export default function Header() {
                   className='h-full w-full rounded-full object-cover'
                 />
               </div>
-              <div>duthanhduoc</div>
+              <div>baoto</div>
             </Popover>
           )}
 
