@@ -3,17 +3,22 @@ import AsideFilter from './AsideFilter'
 import Product from './Product/Product'
 import SortProductList from './SortProductList'
 import { useQuery } from '@tanstack/react-query'
+import { useState } from 'react'
 import productApi from 'src/apis/product.api'
+import Pagination from 'src/components/Pagination'
 
 export default function ProductList() {
   const queryParams = useQueryParams()
+  const [page, setPage] = useState(1)
+
   const { data } = useQuery({
     queryKey: ['products', queryParams],
     queryFn: () => {
       return productApi.getProducts(queryParams)
     }
   })
-  console.log(queryParams)
+
+  console.log(data)
 
   return (
     <div className='bg-gray-200 py-6'>
@@ -32,6 +37,7 @@ export default function ProductList() {
                   </div>
                 ))}
             </div>
+            <Pagination page={page} setPage={setPage} pageSize={20} />
           </div>
         </div>
       </div>
