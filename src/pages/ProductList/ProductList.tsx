@@ -7,6 +7,7 @@ import { omitBy, isUndefined } from 'lodash'
 import productApi from 'src/apis/product.api'
 import Pagination from 'src/components/Pagination'
 import { ProductListConfig } from 'src/types/product.type'
+import { useEffect } from 'react'
 
 export type QueryConfig = {
   [key in keyof ProductListConfig]: string
@@ -17,7 +18,7 @@ export default function ProductList() {
   const queryConfig: QueryConfig = omitBy(
     {
       page: queryParams.page || '1',
-      limit: queryParams.limit || 1,
+      limit: queryParams.limit || '20',
       sort_by: queryParams.sort_by,
       exclude: queryParams.exclude,
       name: queryParams.name,
@@ -48,7 +49,7 @@ export default function ProductList() {
               <AsideFilter />
             </div>
             <div className='col-span-9'>
-              <SortProductList />
+              <SortProductList queryConfig={queryConfig} pageSize={data.data.data.pagination.page_size} />
               <div className='mt-6 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
                 {data.data.data.products.map((product) => (
                   <div className='col-span-1' key={product._id}>
