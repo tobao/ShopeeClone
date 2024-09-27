@@ -50,6 +50,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
       <div className='flex flex-wrap items-center justify-between gap-2'>
         <div className='flex flex-wrap items-center gap-2'>
           <div>Sắp xếp theo</div>
+          {/* Các nút sắp xếp */}
           <button
             className={classNames('h-8 px-4 text-center text-sm capitalize ', {
               'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.view),
@@ -77,6 +78,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
           >
             Bán chạy
           </button>
+          {/* Dropdown sắp xếp theo giá */}
           <select
             className={classNames('h-8  px-4 text-left text-sm capitalize  outline-none ', {
               'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.price),
@@ -96,13 +98,14 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
             </option>
           </select>
         </div>
-
+        {/* Phân trang */}
         <div className='flex items-center'>
           <div>
             <span className='text-orange'>{page}</span>
             <span>/{pageSize}</span>
           </div>
           <div className='ml-2 flex'>
+            {/* Nút điều hướng trang trước */}
             {page === 1 ? (
               <span className='flex h-8 w-9 cursor-not-allowed items-center justify-center rounded-bl-sm rounded-tl-sm bg-white/60  shadow hover:bg-slate-100'>
                 <svg
@@ -139,7 +142,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
                 </svg>
               </Link>
             )}
-
+            {/* Nút điều hướng trang tiếp theo */}
             {page === pageSize ? (
               <span className='flex h-8 w-9 cursor-not-allowed items-center justify-center rounded-bl-sm rounded-tl-sm bg-white/60  shadow hover:bg-slate-100'>
                 <svg

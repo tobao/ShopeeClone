@@ -39,4 +39,5 @@ export interface ProductListConfig {
   price_max?: number | string // Bộ lọc theo giá tối đa
   price_min?: number | string // Bộ lọc theo giá tối thiểu
   name?: string // Tìm kiếm sản phẩm theo tên
+  category?: string //Tìm kiếm theo danh mục SP
 }
