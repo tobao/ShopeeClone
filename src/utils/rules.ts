@@ -1,8 +1,10 @@
 import type { RegisterOptions, UseFormGetValues } from 'react-hook-form'
 import * as yup from 'yup'
+import { AnyObject } from 'yup'
 
 type Rules = { [key in 'email' | 'password' | 'confirm_password']?: RegisterOptions }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getRules = (getValues?: UseFormGetValues<any>): Rules => ({
   email: {
     required: {
@@ -56,6 +58,14 @@ export const getRules = (getValues?: UseFormGetValues<any>): Rules => ({
   }
 })
 
+function testPriceMinMax(this: yup.TestContext<AnyObject>) {
+  const { price_min, price_max } = this.parent as { price_min: string; price_max: string }
+  if (price_min !== '' && price_max !== '') {
+    return Number(price_max) >= Number(price_min)
+  }
+  return price_min !== '' || price_max !== ''
+}
+
 export const schema = yup.object({
   email: yup
     .string()
@@ -73,7 +83,18 @@ export const schema = yup.object({
     .required('Nhập lại password là bắt buộc')
     .min(6, 'Độ dài từ 6 - 160 ký tự')
     .max(160, 'Độ dài từ 6 - 160 ký tự')
-    .oneOf([yup.ref('password')], 'Nhập lại password không khớp')
+    .oneOf([yup.ref('password')], 'Nhập lại password không khớp'),
+  // Thêm .default('') vào các trường price_min và price_max trong schema. Điều này đảm bảo rằng chúng sẽ luôn có giá trị mặc định là chuỗi rỗng ('') thay vì undefined
+  price_min: yup.string().default('').test({
+    name: 'price-not-allowed',
+    message: 'Giá không phù hợp',
+    test: testPriceMinMax
+  }),
+  price_max: yup.string().default('').test({
+    name: 'price-not-allowed',
+    message: 'Giá không phù hợp',
+    test: testPriceMinMax
+  })
 })
 
 export type Schema = yup.InferType<typeof schema>
