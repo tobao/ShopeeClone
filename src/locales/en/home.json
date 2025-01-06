@@ -1,0 +1,11 @@
+{
+  "aside filter": {
+    "all categories": "All categories",
+    "filter search": "Filter",
+    "price range":"Price Range",
+    "apply": "Apply",
+    "rating":"Ratings",
+    "above": "And above",
+    "clear all": "Clear All"
+  }
+}
