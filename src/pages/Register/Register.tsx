@@ -5,6 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Schema, schema } from 'src/utils/rules'
 import Input from 'src/components/Input'
 import authApi from 'src/apis/auth.api'
+import { Helmet } from 'react-helmet-async'
 
 // Không có tính năng tree-shaking
 // import { omit } from 'lodash'
@@ -81,6 +82,10 @@ export default function Register() {
 
   return (
     <div className='bg-orange'>
+      <Helmet>
+        <title>Đăng ký | Shopee Clone</title>
+        <meta name='description' content='Đăng ký tài khoản vào dự án Shopee Clone' />
+      </Helmet>
       <div className='container'>
         <div className='grid grid-cols-1 py-12 lg:grid-cols-5 lg:py-32 lg:pr-10'>
           <div className='lg:col-span-2 lg:col-start-4'>
